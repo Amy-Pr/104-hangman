@@ -6,12 +6,14 @@ module Hangman
       @chances = 5
       @wrong_tries = 0
       @guess = ""
-      @word = Dictionary.random
+      @word = "ruby" #Dictionary.random
+      
     end
 
     def play
       Graphics.clear_screen
       puts 'Guess this word: ' + Graphics.obfuscate_word(word, '')
+      
 
       while true
         print "[#{chances - wrong_tries} chances left]: "
@@ -19,35 +21,60 @@ module Hangman
         char = gets.chomp
         Graphics.clear_screen
 
-        if word.include? char
-          if guess.include? char
-            puts "You already entered '#{char}'. Yes, it is still correct.. 🙄"
-            puts 'Try again: ' + Graphics.obfuscate_word(word, guess)
-          else
-            guess << char
-            placeholder = Graphics.obfuscate_word(word, guess)
-
-            puts 'Whoop Whoop!! ' + placeholder
-          end
+        def win
+          placeholder = Graphics.obfuscate_word(word, guess)
 
           unless placeholder.include? Graphics::OBFUSCATION_CHAR
             puts Graphics::ALIVE
             puts "\n\nWELL DONE!! YOU SURVIVED"
-            break
+            exit
           end
-        else
-          puts "OH NOES! The word doesn't contain '#{char}'"
-          @wrong_tries = @wrong_tries + 1
 
           if wrong_tries == chances
             puts Graphics::DEAD
             puts "\nARRRRGGGGGGGGGGG YOU LOST! 😭  😵  ☠️"
-            break
+            exit
           else
-            puts 'Try another: ' + Graphics.obfuscate_word(word, guess)
+            puts 'Try another: ' + placeholder
+            
           end
+        end 
+       
+        unless word.include? char
+          if char.match?(/[A-Za-z]/)
+            if guess.include? char
+              puts "It's still wrong"
+              @wrong_tries = @wrong_tries
+            else
+              puts "OH NOES! The word doesn't contain '#{char}'"
+              guess << char
+              @wrong_tries = @wrong_tries + 1
+            end
+          else
+            puts "You must enter a letter" 
+            @wrong_tries = @wrong_tries
+          end
+         win
         end
+        
+        
+        if word.include? char
+          if guess.include? char
+            puts "You already entered '#{char}'. Yes, it is still correct.. 🙄"
+          else
+            guess << char
+            puts 'Whoop Whoop!! '
+          end
+          win
+        end
+
+        
+
+      
       end
     end
   end
 end
+
+
+
