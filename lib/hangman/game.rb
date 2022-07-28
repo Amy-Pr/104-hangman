@@ -21,24 +21,7 @@ module Hangman
         char = gets.chomp
         Graphics.clear_screen
 
-        def win
-          placeholder = Graphics.obfuscate_word(word, guess)
-
-          unless placeholder.include? Graphics::OBFUSCATION_CHAR
-            puts Graphics::ALIVE
-            puts "\n\nWELL DONE!! YOU SURVIVED"
-            exit
-          end
-
-          if wrong_tries == chances
-            puts Graphics::DEAD
-            puts "\nARRRRGGGGGGGGGGG YOU LOST! 😭  😵  ☠️"
-            exit
-          else
-            puts 'Try another: ' + placeholder
-            
-          end
-        end 
+        
        
         unless word.include? char
           if char.match?(/[A-Za-z]/)
@@ -66,13 +49,30 @@ module Hangman
             puts 'Whoop Whoop!! '
           end
           win
-        end
+        end 
+      end #end of while loop
 
+    end # end of play method
+
+    def win
+      placeholder = Graphics.obfuscate_word(word, guess)
+
+      unless placeholder.include? Graphics::OBFUSCATION_CHAR
+        puts Graphics::ALIVE
+        puts "\n\nWELL DONE!! YOU SURVIVED"
+        exit
+      end
+
+      if wrong_tries == chances
+        puts Graphics::DEAD
+        puts "\nARRRRGGGGGGGGGGG YOU LOST! 😭  😵  ☠️"
+        exit
+      else
+        puts 'Try another: ' + placeholder
         
-
-      
       end
     end
+
   end
 end
 
