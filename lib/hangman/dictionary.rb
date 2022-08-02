@@ -1,11 +1,20 @@
 module Hangman
   module Dictionary
-    WORDS = %w{
-      banana avocado apple chocolate froyo peanut
-    }
+   
+    WORDS = File.new("linuxwords.txt")
+
 
     def self.random
-      WORDS.sample
+      open(WORDS) do |f|
+        data = f.read
+        newArray = data.split
+        newArray.sample
+      end
     end
+
+    #def self.random
+      #WORDS.sample
+    #end
+
   end
 end

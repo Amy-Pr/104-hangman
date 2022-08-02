@@ -6,7 +6,7 @@ module Hangman
       @chances = 5
       @wrong_tries = 0
       @guess = ""
-      @word = "ruby" #Dictionary.random
+      @word = Dictionary.random
       
     end
 
