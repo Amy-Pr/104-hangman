@@ -6,8 +6,7 @@ module Hangman
       @chances = 5
       @wrong_tries = 0
       @guess = ""
-      @word = Dictionary.random
-      
+      @word = Dictionary.random  
     end
 
     def play
@@ -58,7 +57,17 @@ module Hangman
       placeholder = Graphics.obfuscate_word(word, guess)
 
       unless placeholder.include? Graphics::OBFUSCATION_CHAR
-        puts Graphics::ALIVE
+        2.times do
+          print Graphics::ALIVE
+          sleep (0.09)
+          Graphics.clear_screen
+          print Graphics::BREAK
+          sleep (0.09)
+          Graphics.clear_screen
+          print Graphics::DANCE
+          sleep (0.09)
+          Graphics.clear_screen
+        end
         puts "\n\nWELL DONE!! YOU SURVIVED"
         exit
       end
@@ -71,10 +80,19 @@ module Hangman
         puts 'Try another: ' + placeholder
         
       end
-    end
+    end # end win method
 
-  end
-end
+    
+    Signal.trap("SIGINT") {
+      Graphics.clear_screen
+      puts "Parting is such sweet sorrow."
+      exit
+  }
+      
+
+
+  end # end class
+end # end module
 
 
 

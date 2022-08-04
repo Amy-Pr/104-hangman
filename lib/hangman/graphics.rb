@@ -16,7 +16,22 @@ HANG
   (•_•)
   <)  )╯
   /   \\
+
 WIN
+
+    BREAK = <<MOVE 
+  (•_•)
+  (  (>
+  /   \\
+
+MOVE
+
+    DANCE = <<STEP 
+  (•_•)
+  <)  )>
+  /   \\
+
+STEP
 
     OBFUSCATION_CHAR = "👾"
 
@@ -29,6 +44,7 @@ WIN
       # if neither is working print 100 blank lines
       system("clear") || system("cls") || puts("\n" * 100)
     end
+
 
     def self.obfuscate_word word, guessed
       obfuscated = ''
