@@ -8,13 +8,10 @@ module Hangman
       open(WORDS) do |f|
         data = f.read
         newArray = data.split
-        newArray.sample
+        filterArray = newArray.select {|v| v.length > 4}
+        filterArray.sample
       end
     end
-
-    #def self.random
-      #WORDS.sample
-    #end
 
   end
 end
